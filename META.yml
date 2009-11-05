@@ -1,7 +1,7 @@
 --- #YAML:1.0
 name:               Traceroute-Similar
-version:            0.12
-abstract:           Perl extension for looking up common hops
+version:            0.13
+abstract:           calculate common route for a bunch of hosts
 author:
     - Sven Nierlein <nierlein@cpan.org>
 license:            unknown
