@@ -4,12 +4,12 @@
 
 package Traceroute::Similar;
 
-use 5.008000;
+use 5.000000;
 use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 =head1 NAME
 
@@ -69,6 +69,8 @@ sub new {
 
 =head1 METHODS
 
+=over 4
+
 =item get_backend ( )
 
 returns the used backend or undef if none found
@@ -79,8 +81,6 @@ sub get_backend {
     my $self  = shift;
     return($self->{'backend'});
 }
-
-=over 4
 
 =item get_last_common_hop ( host 1, host 2, [ host x...] )
 
@@ -99,9 +99,8 @@ sub get_last_common_hop {
     return($self->_calculate_last_common_hop($routes))
 }
 
-########################################
 
-=over 4
+########################################
 
 =item get_common_hops ( host 1, host 2, [ host x...] )
 
@@ -120,6 +119,9 @@ sub get_common_hops {
     return($self->_calculate_common_hops($routes))
 }
 
+
+########################################
+# internal subs
 ########################################
 sub _calculate_last_common_hop {
     my $self   = shift;
@@ -139,6 +141,8 @@ sub _calculate_common_hops {
     my $self   = shift;
     my $routes = shift;
     my $common;
+
+    return if !defined $routes;
 
     my @hostnames = keys %{$routes};
     if(scalar @hostnames <= 1) { croak("need at least 2 hosts to calculate similiar routes"); }
@@ -222,8 +226,8 @@ sub _extract_routes_from_traceroute {
     my $output = shift;
     my @routes;
 
-    for my $line (split /\n/, $output) {
-        if($line =~ m/(\d+)\s+(.*?)\s+\((\d+\.\d+\.\d+\.\d+)\)/) {
+    for my $line (split /\n/xm, $output) {
+        if($line =~ m/(\d+)\s+(.*?)\s+\((\d+\.\d+\.\d+\.\d+)\)/xm) {
             push @routes, { 'addr' => $3, 'name' => $2 };
         }
     }
