@@ -9,7 +9,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '0.14';
+our $VERSION = '0.15_1';
 
 =head1 NAME
 
@@ -35,7 +35,7 @@ tracerroute (which may require root or sudo permissions).
 
 Creates an C<Traceroute::Similar> object. All arguments are optional.
 
-    backend                   path to the unix socket of check_mk livestatus
+    backend                   'Net::Traceroute' or 'Net::Traceroute::PurePerl'
     verbose                   verbose mode
 
 =back
